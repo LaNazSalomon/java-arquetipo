@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+
+                template="./../WEB-INF/template.xhtml">
+
+    <ui:define name="title">
+        #{msg['generico.home.titulo']}
+
+    </ui:define>
+
+    <ui:define name="head">
+
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="grid dashboard">
+            <div class="col-12 md:col-6 lg:col-4">
+                <div class="grid card grid-nogutter overview-box overview-box-1">
+                    <div class="col-4 overview-box-icon">
+                        <p:graphicImage name="images/icon-paper.png" library="verona-layout"/>
+                    </div>
+                    <div class="col-8">
+                        <span class="overview-box-count">253</span>
+                        <span class="overview-box-name">Reportes Procesados</span>
+                        <!--<span class="overview-box-rate">+10%</span>-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-4">
+                <div class="grid card grid-nogutter overview-box overview-box-2">
+                    <div class="col-4 overview-box-icon">
+                        <p:graphicImage name="images/icon-mail.png" library="verona-layout"/>
+                    </div>
+                    <div class="col-8">
+                        <span class="overview-box-count">3216</span>
+                        <span class="overview-box-name">Reportes Enviados</span>
+                        <!--<span class="overview-box-rate">+34%</span>-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-4">
+                <div class="grid card grid-nogutter overview-box overview-box-3">
+                    <div class="col-4 overview-box-icon">
+                        <p:graphicImage name="images/icon-location.png" library="verona-layout"/>
+                    </div>
+                    <div class="col-8">
+                        <span class="overview-box-count">428</span>
+                        <span class="overview-box-name">Alertas enviadas</span>
+                        <span class="overview-box-rate">al dia</span>
+                    </div>
+                </div>
+            </div>
+<!--            <div class="col-12 md:col-6 lg:col-3">
+                <div class="grid card grid-nogutter overview-box overview-box-4">
+                    <div class="col-4 overview-box-icon">
+                        <p:graphicImage name="images/icon-orders.png" library="verona-layout"/>
+                    </div>
+                    <div class="col-8">
+                        <span class="overview-box-count">924</span>
+                        <span class="overview-box-name">NEW ORDERS</span>
+                        <span class="overview-box-rate">+24%</span>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+
+
+    </ui:define>
+
+</ui:composition>

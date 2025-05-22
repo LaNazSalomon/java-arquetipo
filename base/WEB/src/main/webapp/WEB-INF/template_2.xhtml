@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <f:view locale="#{administradorPaginas.idioma}" >
+
+
+        <h:head>
+            <f:facet name="first">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+                <meta name="apple-mobile-web-app-capable" content="yes"/>
+            </f:facet>
+            <title><ui:insert name="title">CAEMS</ui:insert></title>
+            <h:outputScript name="js/layout.js" library="verona-layout"/>
+            <h:outputScript name="js/prism.js" library="verona-layout"/>
+            <h:outputScript name="js/validacionesCaems.js" library="verona-layout" />
+
+
+            <ui:insert name="head"/>
+        </h:head>
+
+        <h:body styleClass="#{guestPreferences.inputStyleClass}" onload="#{login.consultaNuevo()}">
+            <div class="layout-wrapper layout-menu-#{guestPreferences.menuMode}">
+
+                <ui:include src="./topbar.xhtml"/>
+
+
+
+                <!--<ui:include src="./config.xhtml"/>-->
+
+                <div class="layout-main">
+                    <div class="layout-content">
+                        <h:form id="formGlobal">
+                            <p:growl id="mensjaeGlobal" 
+                                     life="8000" showDetail="true" showSummary="true"/>
+                            <ui:insert name="content"/>
+
+                        </h:form>
+                    </div>
+
+                    <ui:include src="./footer.xhtml"/>
+                </div>
+            </div>
+
+           
+            <p:dialog widgetVar="WV_SinSesion" header="Cierre de Sesión" modal="true" 
+                      width="30%" draggable="false" closable="false" >
+                <h:form>
+
+                    <p:panelGrid columns="1" styleClass="sinBordes">
+                        <p:outputLabel value="Estimado usuario por inactividad se a cerrado su sesión, por favor volver a ingresar"/>
+
+
+                    </p:panelGrid>
+
+                    <p:panelGrid columns="2" style="margin-left: 70%;" styleClass="sinBordes">
+                        <p:commandButton value="Aceptar"
+                                         actionListener="#{login.salir()}" process="@form"
+                                         styleClass="GreenButton ripplelink"/>
+
+
+
+                    </p:panelGrid>
+                </h:form>
+
+            </p:dialog>
+            <p:dialog widgetVar="WV_SinSesion2" header="Cierre de Sesión" modal="true" 
+                      width="30%" draggable="false" closable="false" >
+                <h:form>
+
+                    <p:panelGrid columns="1" styleClass="sinBordes">
+                        <p:outputLabel value="¿Esta seguro que desea salir?" />
+                    </p:panelGrid>
+
+                    <p:panelGrid columns="2" style="margin-left: 70%;" styleClass="sinBordes">
+                        <p:commandButton value="Aceptar"
+                                         actionListener="#{login.salir()}" process="@form"
+                                         styleClass="GreenButton ripplelink"/>
+
+
+
+                    </p:panelGrid>
+                </h:form>
+
+            </p:dialog>
+
+            <p:ajaxStatus style="width:32px;height:32px;position:fixed;right:7px;bottom:7px">
+                <f:facet name="start">
+                    <i class="pi pi-spin pi-spinner layout-ajax-loader-icon" aria-hidden="true"/>
+                </f:facet>
+
+                <f:facet name="complete">
+                    <h:outputText value=""/>
+                </f:facet>
+            </p:ajaxStatus>
+            <ui:include src="cambioContrasenaPrimerInicio.xhtml"/>
+
+            <h:outputStylesheet name="css/primeicons.css" library="verona-layout"/>
+            <h:outputStylesheet name="css/primeflex.min.css" library="verona-layout"/>
+            <h:outputStylesheet name="css/demo.css" library="demo"/>
+            <h:outputStylesheet name="css/estilosBase.css" library="verona-layout" />
+
+            <h:outputStylesheet name="css/layout-#{guestPreferences.layout}.css" library="verona-layout"/>
+        </h:body>
+    </f:view>
+
+</html>

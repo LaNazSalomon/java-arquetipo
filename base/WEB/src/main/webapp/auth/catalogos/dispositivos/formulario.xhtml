@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../../WEB-INF/template.xhtml"
+                xmlns:cmp="http://xmlns.jcp.org/jsf/composite/cmp"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        Registrar/Modificar Dispositivo
+    </ui:define>
+
+    <ui:define name="head">
+        <style type="text/css">
+            input{
+                width: 100%!important;
+            }
+        </style>
+
+    </ui:define>
+
+    <ui:define name="content">
+        <h2> #{controllerCatDispositivos.banderaEdicion?'Modificar Dispositivo':'Registrar Dispositivo'}</h2>
+
+
+        <p:panelGrid columns="3" layout="grid">
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+
+                <p:outputLabel value="nombre:*" />
+                <p:inputText value="#{controllerCatDispositivos.nuevo.nombre}"  required="true" requiredMessage="El campo 'nombre' es requerido" />
+            </p:panelGrid>
+            <p:panelGrid  columns="1" layout="grid" styleClass="sinBordes">
+                <p:outputLabel  value="Servicio Monitoreado*:"/>
+                <p:selectOneMenu value="#{controllerCatDispositivos.nuevo.idServicioMonitoreado}"
+                             style="width: 100%"    requiredMessage="Debe seleccionar almenos un servicio"  filter="true" filterMatchMode="startsWith"
+                                 required="true" converter="listaConverter">
+                    <f:selectItem itemLabel="#{msg['generico.combo.seleccion']}" itemValue="" noSelectionOption="true"/>                 
+                    <f:selectItems value="#{controllerCatDispositivos.listaServicios}" var="em" itemLabel="#{em.nombre}" itemValue="#{em}" />
+                    <p:ajax event="change"  process="@this" update="selectindicadores"/>
+                </p:selectOneMenu>
+            </p:panelGrid>
+            <p:panelGrid  columns="1" layout="grid" styleClass="sinBordes">
+                <p:outputLabel  value="Modelo*:"/>
+                <p:selectOneMenu value="#{controllerCatDispositivos.nuevo.idModeloDispositivo}"
+                                 style="width: 100%"    id="selectindicadores"    requiredMessage="Debe seleccionar almenos un modelo"  filter="true" filterMatchMode="startsWith"
+                                 required="true" converter="listaConverter">
+                    <f:selectItem itemLabel="#{msg['generico.combo.seleccion']}" itemValue="" noSelectionOption="true"/>                 
+                    <f:selectItems value="#{controllerCatDispositivos.listaModelos}" var="em" itemLabel="#{em.nombre}" itemValue="#{em}" />
+                    <p:ajax event="change"  process="@this"/>
+                </p:selectOneMenu>
+            </p:panelGrid>
+
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+
+                <p:outputLabel value="Protocolo Comunicacion:*" />
+                <p:inputText value="#{controllerCatDispositivos.nuevo.protocoloComunicacion}"  required="true" requiredMessage="El campo 'Protocolo Comunicacion' es requerido" />
+            </p:panelGrid>
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+
+                <p:outputLabel value="Identificador:*" />
+                <p:inputNumber value="#{controllerCatDispositivos.nuevo.identificador}" decimalPlaces="0"  required="true" requiredMessage="El campo 'Identificador' es requerido" />
+            </p:panelGrid>
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+
+                <p:outputLabel value="IP:*" />
+                <p:inputText value="#{controllerCatDispositivos.nuevo.ip}"  required="true" requiredMessage="El campo 'IP' es requerido" />
+            </p:panelGrid>
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+
+                <p:outputLabel value="Puerto Comunicacion:*" />
+                <p:inputNumber decimalPlaces="0" value="#{controllerCatDispositivos.nuevo.puerto}"  required="true" requiredMessage="El campo 'Puerto Comunicacion' es requerido" />
+            </p:panelGrid>
+
+
+
+
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+                <p:outputLabel value="Estatus:" />
+                <p:inputSwitch value="#{controllerCatDispositivos.nuevo.status}"  />
+            </p:panelGrid>
+
+
+
+        </p:panelGrid>
+
+
+
+        <cmp:botonesFormulario actionCancelar="#{controllerCatDispositivos.cancelar()}" 
+                               actionGuardar="#{controllerCatDispositivos.guardar()}"
+                               banderaEdicion="#{controllerCatDispositivos.banderaEdicion}"
+                               />
+
+
+
+    </ui:define>
+
+</ui:composition>

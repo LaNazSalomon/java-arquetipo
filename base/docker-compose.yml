@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: estructurabase
+      POSTGRES_USER: facturacheck
+      POSTGRES_PASSWORD: 4TVtg29xEqvMMc37yQfg
+    volumes:
+      - "//c/Users/Salomon_CA/Programacion/Arquetipo-Java/base/baseDatos/postgres/public.sql:/docker-entrypoint-initdb.d/public.sql"
+    ports:
+      - "5432:5432"
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: java-arquetipo
+    environment:
+      DB_HOST: postgres_db
+      DB_PORT: 5432
+      DB_DATABASE: estructurabase
+      DB_USER: facturacheck
+      DB_PASSWORD: 4TVtg29xEqvMMc37yQfg
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"

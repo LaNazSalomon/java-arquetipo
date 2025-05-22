@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../../WEB-INF/template.xhtml"
+                xmlns:cmp="http://xmlns.jcp.org/jsf/composite/cmp"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        Registrar/Modificar Alarmas
+    </ui:define>
+
+    <ui:define name="head">
+  <style type="text/css">
+            input{
+                width: 100%!important;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="content">
+        <h2> #{controllerCatAlarmas.banderaEdicion?'Modificar Alarmas':'Registrar Alarmas'}</h2>
+
+
+        <p:panelGrid columns="3" layout="grid">
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+
+                <p:outputLabel value="Nombre Alarma:*" />
+                <p:inputText value="#{controllerCatAlarmas.nuevo.nombre}"  required="true" requiredMessage="El campo 'nombre' es requerido" />
+            </p:panelGrid>
+
+            <p:panelGrid  columns="1" layout="grid" styleClass="sinBordes">
+                <p:outputLabel  value="Dispositivo Monitoreado*:"/>
+                <p:selectOneMenu value="#{controllerCatAlarmas.dispositivoSelect}"
+                                 style="width: 100%"    requiredMessage="Debe seleccionar almenos un rol"  filter="true" filterMatchMode="startsWith"
+                                 required="true" converter="listaConverter">
+                    <f:selectItem itemLabel="#{msg['generico.combo.seleccion']}" itemValue="" noSelectionOption="true"/>                 
+                    <f:selectItems value="#{controllerCatAlarmas.listadispositivos}" var="em" itemLabel="#{em.nombre}" itemValue="#{em}" />
+                    <p:ajax event="change"  process="@this" update="selectindicadores,mensaje" listener="#{controllerCatAlarmas.buscarIndicadoresDispositivo()}"/>
+                </p:selectOneMenu>
+            </p:panelGrid>
+            <p:panelGrid  columns="1" layout="grid" styleClass="sinBordes">
+                <p:outputLabel  value="Indicador Monitoreado*:"/>
+                <p:selectOneMenu value="#{controllerCatAlarmas.nuevo.idIndicadorDispositivoMonitoreado}"
+                             style="width: 100%"        id="selectindicadores"    requiredMessage="Debe seleccionar almenos un rol"  filter="true" filterMatchMode="startsWith"
+                                 required="true" converter="listaConverter">
+                    <f:selectItem itemLabel="#{msg['generico.combo.seleccion']}" itemValue="" noSelectionOption="true"/>                 
+                    <f:selectItems value="#{controllerCatAlarmas.listaIndicadoresMonitoreados}" var="em" itemLabel="#{em.nombre}" itemValue="#{em}" />
+                    <p:ajax event="change"  process="@this"/>
+                </p:selectOneMenu>
+            </p:panelGrid>
+
+            <p:panelGrid  columns="1" layout="grid" styleClass="sinBordes">
+                <p:outputLabel  value="Tipo de envio*:"/>
+                <p:selectOneMenu value="#{controllerCatAlarmas.nuevo.idTipoConfiguraciones}"
+                             style="width: 100%"        requiredMessage="Debe seleccionar almenos un rol"  filter="true" filterMatchMode="startsWith"
+                                 required="true" converter="listaConverter">
+                    <f:selectItem itemLabel="#{msg['generico.combo.seleccion']}" itemValue="" noSelectionOption="true"/>                 
+                    <f:selectItems value="#{controllerCatAlarmas.listaTiposEnvio}" var="em" itemLabel="#{em.nombre}" itemValue="#{em}" />
+                    <p:ajax event="change"  process="@this"/>
+                </p:selectOneMenu>
+            </p:panelGrid>
+
+          
+
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+
+                <p:outputLabel value="Valor maximo de referencia:*" />
+                <p:inputNumber value="#{controllerCatAlarmas.nuevo.valorMaximo}"  required="true" requiredMessage="El campo 'nombre' es requerido" />
+            </p:panelGrid>
+
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+
+                <p:outputLabel value="Valor minimo de referencia:*" />
+                <p:inputNumber  value="#{controllerCatAlarmas.nuevo.valorMinimo}"  required="true" requiredMessage="El campo 'nombre' es requerido" />
+            </p:panelGrid>
+              <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+                <p:outputLabel value="Descripcion:*" />
+                <p:inputTextarea  value="#{controllerCatAlarmas.nuevo.descripcion}" cols="50" rows="5"/>
+            </p:panelGrid>
+
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+                <p:outputLabel value="Mensaje a enviar*:" />
+                <p:outputLabel value="En servicio de SMS entre mas largo es el mensaje de envio, mas cuesta el msj" style="font-weight: bold;" />
+                <p:inputTextarea id="mensaje"  value="#{controllerCatAlarmas.nuevo.mensaje}" cols="50" rows="5"/>
+            </p:panelGrid>
+
+
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+                <p:outputLabel value="Estatus:" />
+                <p:inputSwitch value="#{controllerCatAlarmas.nuevo.status}"  />
+            </p:panelGrid>
+
+
+
+        </p:panelGrid>
+
+
+
+        <cmp:botonesFormulario actionCancelar="#{controllerCatAlarmas.cancelar()}" 
+                               actionGuardar="#{controllerCatAlarmas.guardar()}"
+                               banderaEdicion="#{controllerCatAlarmas.banderaEdicion}"
+                               />
+
+
+
+    </ui:define>
+
+</ui:composition>

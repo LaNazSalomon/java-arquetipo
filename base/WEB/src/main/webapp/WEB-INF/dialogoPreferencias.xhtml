@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" 
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+    </h:head>
+    <h:body>
+
+            <p:dialog widgetVar="PreferenciasSesion" header="Preferencias de Plataforma" modal="false" 
+                      width="70%" height="50%"   draggable="false" closable="false" > 
+
+                <h:form id="config-form" >
+                    <h5>Flat Layout Colors</h5>
+                        <ui:repeat value="#{guestPreferences.flatLayouts}" var="layout">
+                            <div>
+                                <p:commandLink actionListener="#{guestPreferences.setLayout(layout.file)}" update="@form"
+                                               style="background-color: #{layout.color}" title="#{layout.name}" process="@this"
+                                               onstart="PrimeFaces.VeronaConfigurator.beforeResourceChange()"
+                                               oncomplete="PrimeFaces.VeronaConfigurator.changeLayout('#{layout.file}')">
+                                    <ui:fragment rendered="#{layout.file eq guestPreferences.layout}">
+                                        <i class="pi pi-check"/>
+                                    </ui:fragment>
+                                </p:commandLink>
+                            </div>
+                        </ui:repeat>
+
+                    <hr/>
+
+                    <h5>Special Layout Colors</h5>
+                        <ui:repeat value="#{guestPreferences.specialLayouts}" var="layout">
+                            <div>
+                                <p:commandLink actionListener="#{guestPreferences.setLayout(layout.file)}"
+                                               style="background-image: linear-gradient(to right,#{layout.color1},#{layout.color2})"
+                                               title="#{layout.name}" process="@this" update="@form"
+                                               onstart="PrimeFaces.VeronaConfigurator.beforeResourceChange()"
+                                               oncomplete="PrimeFaces.VeronaConfigurator.changeLayout('#{layout.file}')">
+                                    <ui:fragment rendered="#{layout.file eq guestPreferences.layout}">
+                                        <i class="pi pi-check"/>
+                                    </ui:fragment>
+                                </p:commandLink>
+                            </div>
+                        </ui:repeat>
+
+                    <hr/>
+
+                    <h5>Themes</h5>
+                        <ui:repeat value="#{guestPreferences.themes}" var="theme">
+                            <div>
+                                <p:commandLink actionListener="#{guestPreferences.setTheme(theme.file)}" update="@form"
+                                               style="background-color: #{theme.color}" title="#{theme.name}" process="@this"
+                                               onstart="PrimeFaces.VeronaConfigurator.beforeResourceChange()"
+                                               oncomplete="PrimeFaces.VeronaConfigurator.changeScheme('#{theme.file}')">
+                                    <ui:fragment rendered="#{theme.file eq guestPreferences.theme}">
+                                        <i class="pi pi-check"/>
+                                    </ui:fragment>
+                                </p:commandLink>
+                            </div>
+                        </ui:repeat>
+                </h:form>
+
+
+
+
+
+
+
+
+
+            </p:dialog>
+
+    </h:body>
+</html>

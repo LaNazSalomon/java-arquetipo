@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../../WEB-INF/template.xhtml"
+                xmlns:cmp="http://xmlns.jcp.org/jsf/composite/cmp"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        Registrar/Modificar Usuario
+    </ui:define>
+
+    <ui:define name="head">
+
+    </ui:define>
+
+    <ui:define name="content">
+        <h2> #{controllerCatUsuarios.banderaEdicion?'Modificar Usuario':'Registrar Usuario'}</h2>
+
+
+        <p:panelGrid columns="4" layout="grid" styleClass="sinBordes">
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+
+                <p:outputLabel value="nombres:*"  />
+                <p:inputText value="#{controllerCatUsuarios.nuevo.nombres}"  required="true" requiredMessage="El campo 'nombres' es requerido" >
+                    <p:ajax event="blur" update="username" process="@this"/>
+
+                </p:inputText>
+            </p:panelGrid>
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+
+                <p:outputLabel value="Apelido paterno:*" />
+                <p:inputText value="#{controllerCatUsuarios.nuevo.apellidoPaterno}"  required="true" requiredMessage="El campo 'Apelido paterno' es requerido" >
+
+                    <p:ajax event="blur" update="username" process="@this" listener="#{controllerCatUsuarios.calculaUsuaro() }"/>
+
+                </p:inputText>
+            </p:panelGrid>
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+
+                <p:outputLabel value="Apelido materno*" />
+                <p:inputText value="#{controllerCatUsuarios.nuevo.apellidoMaterno}"   />
+            </p:panelGrid>
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+
+                <p:outputLabel value="Username*" />
+                <p:inputText id="username" value="#{controllerCatUsuarios.nuevo.username}"   />
+            </p:panelGrid>
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+
+                <p:outputLabel value="email*" />
+                <p:inputText value="#{controllerCatUsuarios.nuevo.email}"   />
+            </p:panelGrid>
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+
+                <p:outputLabel value="telefono*" />
+                <p:inputNumber value="#{controllerCatUsuarios.nuevo.telefono}"  minValue="10" decimalPlaces="0"  thousandSeparator="" />
+            </p:panelGrid>
+
+            <p:panelGrid  columns="1" layout="grid" styleClass="sinBordes">
+                <p:outputLabel  value="Rol*:"/>
+                    <p:selectOneMenu value="#{controllerCatUsuarios.nuevo.idRol}"
+                                     requiredMessage="Debe seleccionar almenos un rol"  filter="true" filterMatchMode="startsWith"
+                                     required="true" converter="listaConverter">
+                        <f:selectItem itemLabel="#{msg['generico.combo.seleccion']}" itemValue="" noSelectionOption="true"/>                 
+                        <f:selectItems value="#{controllerCatUsuarios.listaRoles}" var="em" itemLabel="#{em.nombre}" itemValue="#{em}" />
+                        <p:ajax event="change"  process="@this"/>
+                    </p:selectOneMenu>
+            </p:panelGrid>
+
+
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes" rendered="#{controllerCatUsuarios.banderaContrasena}">
+                <p:outputLabel  style="font-size: medium" value="Reestablecer contraseña"/>
+
+                <p:commandButton value="Reestablecer" actionListener="#{controllerCatUsuarios.reestablecer()}" process="@this" update="@form"  >
+                    <p:confirm header="Advertencia" message="¿Esta accion no puede revertirse,¿Esta seguro de proceder?" icon="pi pi-info" />
+                </p:commandButton>
+            </p:panelGrid>
+
+
+
+
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+                <p:outputLabel value="Estatus:" />
+                <p:inputSwitch value="#{controllerCatUsuarios.nuevo.status}"  />
+            </p:panelGrid>
+
+
+
+        </p:panelGrid>
+
+
+
+        <cmp:botonesFormulario actionCancelar="#{controllerCatUsuarios.cancelar()}" 
+                               actionGuardar="#{controllerCatUsuarios.guardar()}"
+                               banderaEdicion="#{controllerCatUsuarios.banderaEdicion}"
+                               />
+
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+            <p:panelGrid columns="2" 
+                         style="margin-left: auto;margin-top: 7%;"
+                         styleClass="sinBordes">
+                <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes green-button" icon="ui-icon-check fa fa-check Fs14 White" />
+                <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no red-button" icon="ui-icon-close fa fa-close Fs14 White" />
+
+            </p:panelGrid>
+
+        </p:confirmDialog>
+
+
+
+    </ui:define>
+
+</ui:composition>

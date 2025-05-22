@@ -1,0 +1,90 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pa="http://primefaces.org/verona">
+
+    <div class="topbar">
+        <h:form id="formTop"> 
+            <div class="topbar-main">
+                <a href="#" id="menu-button">
+                    <span class="pi pi-bars"></span>
+                </a>
+                <h:link outcome="/auth/home.caems">
+                    <p:graphicImage name="images/caems/CAEMS-bco.png" library="verona-layout" styleClass="logo"/>
+                </h:link>
+                <!--                <div class="app-name">
+                                    <h:link outcome="/dashboard" value="CAEMS"/>
+                                </div>-->
+                <p:selectOneMenu value="#{administradorPaginas.idioma}"  style="margin-left: 59%"
+                                 valueChangeListener="#{administradorPaginas.changeLang}" onchange="submit();" >
+                    <f:selectItem itemValue="es_MX" itemLabel="#{msg['generico.idioma.es']}"/>
+                    <f:selectItem itemValue="en_US" itemLabel="#{msg['generico.idioma.en']}" />
+                    <p:ajax event="change" oncomplete="location.reload()" process="@this"/>
+                </p:selectOneMenu>
+
+                <a href="#" id="user-display">
+                    <span class="username">#{administradorPaginas.usuarioSesion.nombres} #{administradorPaginas.usuarioSesion.apellidoPaterno} #{administradorPaginas.usuarioSesion.apellidoMaterno}</span>
+                    <span class="userrole">#{administradorPaginas.usuarioSesion.idRol.nombre}</span>
+                    <p:graphicImage name="images/avatar.png" library="verona-layout" />
+                </a>
+
+
+                <ul id="topbar-menu" class="fadeInDown animated">
+
+                    <li>
+
+                        <p:commandLink onclick="PF('dlgContrasena').show()" process="@this">
+                            <i class="topbar-icon pi pi-fw pi-cog"></i>
+
+                            <span class="topbar-item-name">Cambio Contraseña</span>
+
+
+                        </p:commandLink>
+
+
+
+                    </li>
+                    <li>
+
+                       <p:commandLink onclick="PF('PreferenciasSesion').show()">
+                            <i class="topbar-icon pi pi-fw pi-cog"></i>
+
+                            <span class="topbar-item-name">Preferencias Plataforma</span>
+
+
+                        </p:commandLink>
+
+
+                    </li>
+                    <li>
+
+                        <p:commandLink onclick="PF('WV_SinSesion2').show()" process="@this" >
+                            <i class="topbar-icon pi pi-fw pi-cog"></i>
+
+                            <span class="topbar-item-name">Salir</span>
+
+
+                        </p:commandLink>
+
+
+                    </li>
+
+
+                </ul>
+
+
+            </div>
+
+        </h:form>
+
+
+
+
+        <ui:include src="./menu.xhtml" />
+        <ui:include src="./dialogoPreferencias.xhtml" />
+    </div>
+
+</ui:composition>

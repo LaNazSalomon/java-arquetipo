@@ -1,0 +1,69 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pv="http://primefaces.org/verona">
+
+    <div class="layout-menu-wrapper">
+        <div class="layout-menu-container">
+            <h:form id="menuform">
+                <pv:menu widgetVar="VeronaMenuWidget">
+                    <p:menuitem  value="Dashboard" icon="pi pi-fw pi-home" outcome="/auth/home.caems"/>
+                    <p:submenu  label="Administracion" icon="pi pi-fw pi-cog" >
+                        <p:menuitem  value="Administracion roles" icon="pi pi-fw pi-lock" process="@this"
+                                     actionListener="#{administradorPaginas.cambiaPagina('/auth/administracion/roles/bandeja.caems?id=0')}" />
+                        <p:menuitem  value="Administracion Usuarios" icon="pi pi-fw pi-users"  process="@this"
+                                     actionListener="#{administradorPaginas.cambiaPagina('/auth/administracion/usuarios/bandeja.caems?id=0')}" />
+
+                        <p:submenu  label="Configuracion Plataforma" icon="pi pi-fw pi-cog">
+                            <p:menuitem  value="Configuracion Mensajeria" icon="pi pi-fw pi-envelope"  process="@this" 
+                                         actionListener="#{administradorPaginas.cambiaPagina('/auth/administracion/configuracionPlataforma/configuracionesGenerales.caems?id=0')}"    />
+                            <p:menuitem  value="Preferencias Plataforma" icon="pi pi-fw pi-star-fill"  process="@this" 
+                                         actionListener="#{administradorPaginas.cambiaPagina('/auth/administracion/configuracionPlataforma/configuracionesGenerales.caems?id=0')}"    />
+
+
+
+                        </p:submenu>
+
+
+
+                    </p:submenu>
+
+                    <p:submenu  label="Administracion Catalogos" icon="pi pi-fw pi-cog">
+                        <p:menuitem  value="Alarmas" icon="pi pi-fw pi-bell" process="@this" 
+                                     actionListener="#{administradorPaginas.cambiaPagina('/auth/catalogos/alarmas/bandeja.caems?id=0')}"/>
+                        <p:menuitem  value="Dispositivos" icon="pi pi-fw pi-tablet" process="@this" 
+                                     actionListener="#{administradorPaginas.cambiaPagina('/auth/catalogos/dispositivos/bandeja.caems?id=0')}"/>
+                        <p:menuitem  value="Modelos Dispositivos" icon="pi pi-fw pi-stop" process="@this" 
+                                     actionListener="#{administradorPaginas.cambiaPagina('/auth/catalogos/modelosDispositivos/bandeja.caems?id=0')}"  />
+                        <p:menuitem  value="Servicios Monitoreados" icon="pi pi-fw pi-credit-card
+                                     " process="@this" 
+                                     actionListener="#{administradorPaginas.cambiaPagina('/auth/catalogos/servicios/bandeja.caems?id=0')}"   />
+                        <p:menuitem  value="Indicadores" icon="pi pi-fw pi-chart-pie"  process="@this" 
+                                     actionListener="#{administradorPaginas.cambiaPagina('/auth/catalogos/indicadores/bandeja.caems?id=0')}"/>
+                        <p:menuitem  value="Empresas" icon="pi pi-fw pi-chart-pie"  process="@this" 
+                                     actionListener="#{administradorPaginas.cambiaPagina('/auth/catalogos/empresas/bandeja.caems?id=0')}"/>
+                    </p:submenu>
+                    <p:menuitem  value="Administracion Indicadores Dispositivos" icon="pi pi-fw pi-chart-line"  process="@this" 
+                                 actionListener="#{administradorPaginas.cambiaPagina('/auth/dispositivos/bandeja.caems?id=0')}"/>
+                    <p:menuitem  value="Administracion API" icon="pi pi-fw pi-chart-line"  process="@this" 
+                                 actionListener="#{administradorPaginas.cambiaPagina('/auth/dispositivos/bandeja.caems?id=0')}"/>
+                    <p:menuitem  value="Monitoreo Tiemnpo Real" icon="pi pi-fw pi-chart-line"  process="@this" 
+                                 actionListener="#{administradorPaginas.cambiaPagina('/auth/dispositivos/bandeja.caems?id=0')}"/>
+
+
+                    <p:submenu  label="Reportes" icon="pi pi-fw pi-compass">
+                        <p:menuitem  value="Consulta Historico" icon="pi pi-fw pi-prime" outcome="/icons"/>
+                        <p:menuitem  value="Graficos" icon="pi pi-fw pi-desktop" target="_blank" url="https://www.primefaces.org/primeflex"/>
+                    </p:submenu>
+
+
+
+                </pv:menu>
+            </h:form>
+        </div>
+    </div>
+
+</ui:composition>

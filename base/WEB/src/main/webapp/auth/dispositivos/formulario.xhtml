@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:cmp="http://xmlns.jcp.org/jsf/composite/cmp"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        Registrar/Modificar Indicadores Dispositivos Monitoreados
+    </ui:define>
+
+    <ui:define name="head">
+
+    </ui:define>
+
+    <ui:define name="content">
+        <h2> #{controllerDtIndicadoresDispositivosMonitoreados.banderaEdicion?'Modificar Indicador Dispositivo Monitoreado':'Registra Indicadore Dispositiv Monitoreado'}</h2>
+
+
+        <p:panelGrid columns="3" layout="grid"  styleClass="sinBordes">
+            <p:panelGrid  columns="1" layout="grid" styleClass="sinBordes">
+                <p:outputLabel  value="Dispositivo*:"/>
+                <p:selectOneMenu value="#{controllerDtIndicadoresDispositivosMonitoreados.nuevo.idDispositivo}"
+                                 style="width: 100%"        requiredMessage="Debe seleccionar almenos un Dispositivo"  filter="true" filterMatchMode="startsWith"
+                                 required="true" converter="listaConverter">
+                    <f:selectItem itemLabel="#{msg['generico.combo.seleccion']}" itemValue="" noSelectionOption="true"/>                 
+                    <f:selectItems value="#{controllerDtIndicadoresDispositivosMonitoreados.listaDispositivos}" var="em" itemLabel="#{em.nombre}" itemValue="#{em}" />
+                    <p:ajax event="change"  process="@this"/>
+                </p:selectOneMenu>
+            </p:panelGrid>
+            <p:panelGrid  columns="1" layout="grid" styleClass="sinBordes">
+                <p:outputLabel  value="Indicador*:"/>
+                <p:selectOneMenu value="#{controllerDtIndicadoresDispositivosMonitoreados.nuevo.idIndicadorDispositivo}"
+                                 style="width: 100%"        requiredMessage="Debe seleccionar almenos un Indicador"  filter="true" filterMatchMode="startsWith"
+                                 required="true" converter="listaConverter">
+                    <f:selectItem itemLabel="#{msg['generico.combo.seleccion']}" itemValue="" noSelectionOption="true"/>                 
+                    <f:selectItems value="#{controllerDtIndicadoresDispositivosMonitoreados.listaIndicadores}" var="em" itemLabel="#{em.nombre}" itemValue="#{em}" />
+                    <p:ajax event="change"  process="@this"/>
+                </p:selectOneMenu>
+            </p:panelGrid>
+
+            <p:panelGrid  columns="1" layout="grid" styleClass="sinBordes">
+                <p:outputLabel  value="Unidad Medida*:"/>
+                <p:selectOneMenu value="#{controllerDtIndicadoresDispositivosMonitoreados.nuevo.idUnidadMedidaIndicador}"
+                                 style="width: 100%"        requiredMessage="Debe seleccionar almenos una unidad de medida"  filter="true" filterMatchMode="startsWith"
+                                 required="true" converter="listaConverter">
+                    <f:selectItem itemLabel="#{msg['generico.combo.seleccion']}" itemValue="" noSelectionOption="true"/>                 
+                    <f:selectItems value="#{controllerDtIndicadoresDispositivosMonitoreados.listaUnidades}" var="em" itemLabel="#{em.nombre}" itemValue="#{em}" />
+                    <p:ajax event="change"  process="@this"/>
+                </p:selectOneMenu>
+            </p:panelGrid>
+      
+
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+
+                <p:outputLabel value="multiplicador*:" />
+                <p:inputNumber value="#{controllerDtIndicadoresDispositivosMonitoreados.nuevo.multiplicador}"
+                               style="width: 100%"        decimalPlaces="5"  required="true" requiredMessage="El campo 'multiplicador' es requerido" />
+            </p:panelGrid>
+            <p:panelGrid columns="2" layout="grid" styleClass="sinBordes">
+
+                <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+                    <p:outputLabel value="Frecuencia Escaneo *:" />
+                    <p:inputNumber value="#{controllerDtIndicadoresDispositivosMonitoreados.nuevo.valorFrecuenciaEscaneo}"
+                                   style="width: 50%!important;"
+                                   decimalPlaces="0"  required="true" requiredMessage="El campo 'Frecuencia Escaneo' es requerido" />
+                </p:panelGrid>
+
+                <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+                    <p:outputLabel value="Tiempo:" />
+                    <p:selectOneMenu value="#{controllerDtIndicadoresDispositivosMonitoreados.nuevo.idUnidadTiempoIndicador}"
+                                     style="width: 100%"        requiredMessage="Debe seleccionar almenos una unidad de tiempo"  
+                                     required="true" converter="listaConverter">
+                        <f:selectItem itemLabel="#{msg['generico.combo.seleccion']}" itemValue="" noSelectionOption="true"/>                 
+                        <f:selectItems value="#{controllerDtIndicadoresDispositivosMonitoreados.listaUnidadesTiempo}" var="em" itemLabel="#{em.nombre}" itemValue="#{em}" />
+                        <p:ajax event="change"  process="@this"/>
+                    </p:selectOneMenu>
+                </p:panelGrid>
+
+
+
+            </p:panelGrid>
+
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+                <p:outputLabel value="Item:*" />
+                <p:inputText style="width: 100%" value="#{controllerDtIndicadoresDispositivosMonitoreados.nuevo.item}" />
+            </p:panelGrid>
+
+
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+                <p:outputLabel value="Estatus:" />
+                <p:inputSwitch value="#{controllerDtIndicadoresDispositivosMonitoreados.nuevo.status}"  />
+            </p:panelGrid>
+
+
+
+        </p:panelGrid>
+
+
+
+        <cmp:botonesFormulario actionCancelar="#{controllerDtIndicadoresDispositivosMonitoreados.cancelar()}" 
+                               actionGuardar="#{controllerDtIndicadoresDispositivosMonitoreados.guardar()}"
+                               banderaEdicion="#{controllerDtIndicadoresDispositivosMonitoreados.banderaEdicion}"
+                               />
+
+
+
+    </ui:define>
+
+</ui:composition>

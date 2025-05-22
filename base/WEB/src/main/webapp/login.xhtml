@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>PrimeFaces Verona</title>
+    </h:head>
+
+    <h:body styleClass="login-body" onload="borrarSesion();">
+        <div class="login-panel ui-fluid">
+            <h:form>
+                <p:remoteCommand name="borrarSesion()" actionListener="#{login.salir()}"/>
+                <p:growl id="mensjaeGlobal" 
+                                 life="8000" showDetail="true" showSummary="true"/>
+                <div class="grid">
+                    <div class="col-12 logo-container">
+                        <p:graphicImage name="images/logo-dark.png" library="verona-layout" />
+                        <h1>Login To Your Account</h1>
+                        <h2>WELCOME</h2>
+                    </div>
+                    <div class="col-12">
+                        <p:inputText placeholder="Usuario" value="#{login.usuario}" required="true" requiredMessage="El campo usuario es requerido" />
+                    </div>
+                    <div class="col-12">
+                        <p:password placeholder="Contraseña" value="#{login.password}" required="true" requiredMessage="El campo contraseña es requerido"  feedback="false"/>
+                    </div>
+
+                    <div class="col-12 button-container">
+                        <p:commandButton actionListener="#{login.entrar()}" value="Entrar" icon="fa fa-user" styleClass="ui-button-success rounded-button ui-button-raised" />
+                    </div>
+                </div>
+            </h:form>
+
+        </div>
+
+        <h:outputStylesheet name="css/layout-#{guestPreferences.layout}.css" library="verona-layout" />
+    </h:body>
+
+</html>

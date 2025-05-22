@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../../WEB-INF/template.xhtml"
+                xmlns:cmp="http://xmlns.jcp.org/jsf/composite/cmp"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:sec="http://www.springframework.org/security/tags">
+
+    <ui:define name="title">
+        Administración Modelos Dispositivos
+    </ui:define>
+
+    <ui:define name="head">
+
+    </ui:define>
+
+    <ui:define name="content">
+        <h2>Administración Modelos Dispositivos</h2>
+        <br/>
+
+        <!--<sec:authorize  access="hasRole('ROLE_ALTA_ROLES')">--> 
+        <h:panelGroup>
+            <cmp:botonAgregarNuevo actionAgregar="#{controllerCatModelosDispositivos.cambiaPaginaAlta()}"/>
+        </h:panelGroup>
+        <!--</sec:authorize>-->
+
+        <h:panelGroup id="resultado">
+            <!--<sec:authorize  access="hasAnyRole('ROLE_BUSQUEDA_ROLES', 'ROLE_EDICION_ROLES')">-->
+            <p:dataTable  var="usuarios" value="#{controllerCatModelosDispositivos.listaCatalogo}"
+                          rowsPerPageTemplate="5,10,15,{ShowAll|'All'}"
+                          currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                          paginator="true"
+                          filteredValue="#{controllerCatModelosDispositivos.filtroCatalogo}"
+                          paginatorPosition="bottom" rows="5"                         
+                          paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" 
+                          reflow="true" emptyMessage="#{msg['generco.tabla.vacia']}" widgetVar="usu">
+                <f:facet name="header" class="sinFondo">
+                    <div id="filtroTablaTareasGenerales">                       
+                        <p:inputText  id="globalFilter" onkeypress="return event.keyCode != 13" 
+                                      placeholder="#{msg['generico.busqueda.tabla']}" 
+                                      style="width: 25%;margin-left: 75%;">
+                            <p:ajax event="keyup" oncomplete="PF('usu').filter();" delay="500" global="false" />
+                        </p:inputText>                     
+                    </div>
+                </f:facet>  
+
+                <p:column headerText="Nombre" styleClass="centrado" filterMatchMode="contains"  filterBy="#{usuarios.nombre}">
+                    <p:outputLabel value="#{usuarios.nombre}"/>
+                </p:column>
+                <p:column headerText="Modelo" styleClass="centrado" filterMatchMode="contains"  filterBy="#{usuarios.modelo}">
+                    <p:outputLabel value="#{usuarios.modelo}"/>
+                </p:column>
+                <p:column headerText="Fabricante" styleClass="centrado" filterMatchMode="contains"  filterBy="#{usuarios.fabricante}">
+                    <p:outputLabel value="#{usuarios.fabricante}"/>
+                </p:column>
+
+                <p:column headerText="Estatus" styleClass="centrado"  filterMatchMode="contains" filterBy="#{usuarios.status ?'Activo':'Inactivo'}">
+                    <p:outputLabel value="#{usuarios.status?'Activo':'Inactivo'}"/>
+                </p:column>
+
+                <p:column headerText="Modificar" styleClass="centrado">
+                    <!--<sec:authorize  access="hasRole('ROLE_EDICION_ROLES')">--> 
+                    <p:commandLink 
+                        actionListener="#{controllerCatModelosDispositivos.cambiaPaginaEdicion(usuarios)}"
+                        >
+
+
+                        <p:graphicImage style="width: 40px!important;" name="images/caems/editar.png"
+                                        library="verona-layout"  title="editar"/>
+                    </p:commandLink>
+
+                    <!--</sec:authorize>-->
+
+                </p:column>
+
+            </p:dataTable>
+            <!--</sec:authorize>-->
+
+        </h:panelGroup>
+    </ui:define>
+
+</ui:composition>

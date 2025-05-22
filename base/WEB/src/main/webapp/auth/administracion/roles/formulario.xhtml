@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../../WEB-INF/template.xhtml"
+                xmlns:cmp="http://xmlns.jcp.org/jsf/composite/cmp"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                 xmlns:sec="http://www.springframework.org/security/tags" >
+
+    <ui:define name="title">
+        Registrar/Modificar Rol
+    </ui:define>
+
+    <ui:define name="head">
+
+    </ui:define>
+
+    <ui:define name="content">
+        <h2> #{controllerCatRoles.banderaEdicion?'Modificar Rol':'Registrar Rol'}</h2>
+
+        <sec:authorize  access="hasRole('ROLE_ALTA_ROLES')">
+            <p:panelGrid columns="3" layout="grid">
+                <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+
+                    <p:outputLabel value="nombre:*" />
+                    <p:inputText value="#{controllerCatRoles.nuevo.nombre}"  required="true" requiredMessage="El campo 'nombre' es requerido" />
+                </p:panelGrid>
+
+                <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+                    <p:outputLabel value="Descripcion:*" />
+                    <p:inputTextarea  value="#{controllerCatRoles.nuevo.descripcion}" cols="50" rows="5"/>
+                </p:panelGrid>
+
+
+                <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+                    <p:outputLabel value="Estatus:" />
+                    <p:inputSwitch value="#{controllerCatRoles.nuevo.status}"  />
+                </p:panelGrid>
+
+
+
+            </p:panelGrid>
+
+            <p:panelGrid columns="1" layout="grid"  styleClass="sinBordes">
+                <p:outputLabel value="Funciones*" />
+                <p:pickList id="PojoPickList" value="#{controllerCatRoles.listaMenus}" var="rol"
+                            itemValue="#{rol}" itemLabel="#{rol.nombre}" showSourceControls="true"
+                            showTargetControls="true" showCheckbox="true"
+                            showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains"
+                            converter="entityConverter" responsive="true"
+                            required="true"
+                            requiredMessage="Debe seleccionar al menos una funcion">
+
+                    <f:facet name="sourceCaption">Disponibles</f:facet>
+                    <f:facet name="targetCaption">Seleccionados</f:facet>
+
+
+
+                    <p:column style="width:94%">
+                        <div class="p-d-flex p-ai-center">
+                            <h:outputText value="#{rol.nombre}"/>
+                        </div>
+                    </p:column>
+                </p:pickList>
+
+
+
+            </p:panelGrid>
+
+            <cmp:botonesFormulario actionCancelar="#{controllerCatRoles.cancelar()}" 
+                                   actionGuardar="#{controllerCatRoles.guardar()}"
+                                   banderaEdicion="#{controllerCatRoles.banderaEdicion}"
+                                   />
+
+        </sec:authorize> 
+
+
+
+
+    </ui:define>
+
+</ui:composition>

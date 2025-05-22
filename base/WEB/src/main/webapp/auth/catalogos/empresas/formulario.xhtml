@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../../WEB-INF/template.xhtml"
+                xmlns:cmp="http://xmlns.jcp.org/jsf/composite/cmp"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        Registrar/Modificar Empresa
+    </ui:define>
+
+    <ui:define name="head">
+        <style type="text/css">
+            input{
+                width: 100%!important;
+            }
+        </style>
+
+    </ui:define>
+
+    <ui:define name="content">
+        <h2> #{controllerCatEmpresas.banderaEdicion?'Modificar Dispositivo':'Registrar Dispositivo'}</h2>
+
+
+        <p:panelGrid columns="3" layout="grid">
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+                <p:outputLabel value="nombre:*" />
+                <p:inputText value="#{controllerCatEmpresas.nuevo.nombre}"  required="true" requiredMessage="El campo 'nombre' es requerido" />
+            </p:panelGrid>
+
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+                <p:outputLabel value="Razón Social:*" />
+                <p:inputText  value="#{controllerCatEmpresas.nuevo.razonSocial}"  required="true" requiredMessage="El campo 'Razó Social' es requerido" />
+            </p:panelGrid>
+
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+                <p:outputLabel value="RFC:*" />
+                <p:inputText decimalPlaces="0" value="#{controllerCatEmpresas.nuevo.rfc}"  required="true" requiredMessage="El campo 'RFC' es requerido" />
+            </p:panelGrid>
+
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+                <p:outputLabel value="Descripción:*" />
+                <p:inputText  value="#{controllerCatEmpresas.nuevo.descripcion}"  required="true" requiredMessage="El campo 'Descripción' es requerido" />
+            </p:panelGrid>
+
+
+
+
+            <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+                <p:outputLabel value="Estatus:" />
+                <p:inputSwitch value="#{controllerCatEmpresas.nuevo.status}"  />
+            </p:panelGrid>
+
+
+
+        </p:panelGrid>
+
+
+
+        <cmp:botonesFormulario actionCancelar="#{controllerCatEmpresas.cancelar()}"
+                               actionGuardar="#{controllerCatEmpresas.guardar()}"
+                               banderaEdicion="#{controllerCatEmpresas.banderaEdicion}"
+                               />
+
+
+
+    </ui:define>
+
+</ui:composition>

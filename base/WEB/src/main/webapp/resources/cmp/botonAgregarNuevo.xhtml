@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+    <!-- INTERFACE -->
+    <cc:interface>       
+        <cc:attribute name="actionAgregar" method-signature="void action(javax.faces.event.AjaxBehaviorEvent)" required="true"/> 
+        <cc:attribute name="nombreBoton" type="java.lang.String" default="Nuevo" /> 
+
+
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+
+
+    <cc:implementation>
+        <style>
+            body .ui-button.ui-button-text-icon-left .ui-icon {
+            
+                font-weight: bold!important;
+            }
+
+        </style>
+        <p:panelGrid columns="1" style="margin-left: auto!important;text-align: left!important; width: 8%!important;"
+                     styleClass="sinBordes">
+            <p:commandButton value="#{cc.attrs.nombreBoton}"
+                             styleClass="ui-button-info mr-2 mb-2"
+                             actionListener="#{cc.attrs.actionAgregar}"
+                             process="@this" title="Agregar un nuevo registro"
+                             style="font-weight: bold;"
+                             icon="pi pi-plus-circle"/>
+
+        </p:panelGrid>
+    </cc:implementation>
+</html>
+

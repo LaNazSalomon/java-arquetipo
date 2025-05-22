@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+
+        <p:dialog styleClass="dialogo-contrasena" position="center" showEffect="fade"
+                  hideEffect="fade" header="Cambio de Contraseña" closable="false" 
+                  resizable="false" widgetVar="dlgContrasena" modal="true" height="300" width="350" responsive="true">
+            <h:form id="cmabioContraseña">
+                <p:growl id="mensajesPass" showDetail="false" sticky="false" life="10000"  />
+
+                <div class="ui-g-12">
+                    <p:outputLabel  value="La contraseña debe contener almenos:" /><br/>
+                    <p:outputLabel  value="1 mayuscula" /><br/>
+                    <p:outputLabel  value="1 minuscula" /><br/>
+                    <p:outputLabel  value="1 caracter especial" /><br/>
+                    <p:outputLabel  value="al menos 8 caracteres" />
+                </div>
+                <div class="ui-g-12">
+                    <p:outputLabel  value="Nueva Contraseña:*" />
+                </div>
+
+                <p:password size="35" id="pwd" maxlength="12" value="#{login.password1}"
+                            required="true" feedback="true" inline="true"
+                            match="pwd2" 
+                            validatorMessage="Las contraseñas no coinciden"
+                            strongLabel="Fuerte" 
+                            promptLabel="Ingrese su contraseña"
+                            weakLabel="Debil" 
+                            goodLabel="Buena"
+                            requiredMessage="La contraseña es requerida"/>
+                <div class="ui-g-12">
+                    <p:outputLabel  value="Confirmar contraseña:*" />
+                </div>
+                <p:password size="35" id="pwd2" maxlength="12" value="#{login.password2}" required="true" 
+                            requiredMessage="La confirmacion de contraseña es requerida"/>
+                <br/>
+                <div class="ui-g-12">
+                    <p:commandButton styleClass="button-login" style="float: right" 
+                                     actionListener="#{login.actualizaContrasena()}"
+                                     process="@form" update="cmabioContraseña:mensajesPass"
+                                     value="Guardar"/>
+                </div>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

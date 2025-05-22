@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../../WEB-INF/template.xhtml"
+                xmlns:cmp="http://xmlns.jcp.org/jsf/composite/cmp"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        Registrar/Modificar Modelo
+    </ui:define>
+
+    <ui:define name="head">
+
+    </ui:define>
+
+    <ui:define name="content">
+        <h2> #{controllerCatModelosDispositivos.banderaEdicion?'Modificar Modelo':'Registrar Modelo'}</h2>
+         
+
+            <p:panelGrid columns="3" layout="grid">
+                <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+
+                    <p:outputLabel value="Nombre:*" />
+                    <p:inputText style="width: 100%" value="#{controllerCatModelosDispositivos.nuevo.nombre}"  required="true" requiredMessage="El campo 'nombre' es requerido" />
+                </p:panelGrid>
+                <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+
+                    <p:outputLabel value="Modelo:*" />
+                    <p:inputText value="#{controllerCatModelosDispositivos.nuevo.modelo}"  required="true"
+                              style="width: 100%"   requiredMessage="El campo 'Modelo' es requerido" />
+                </p:panelGrid>
+
+                <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+                    <p:outputLabel value="Descripcion:*" />
+                    <p:inputTextarea  value="#{controllerCatModelosDispositivos.nuevo.descripcion}" cols="50" rows="5"/>
+                </p:panelGrid>
+                
+                  <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+
+                    <p:outputLabel value="URL:*" />
+                    <p:inputText value="#{controllerCatModelosDispositivos.nuevo.url}"  required="true"
+                              style="width: 100%"   requiredMessage="El campo 'url' es requerido" />
+                </p:panelGrid>
+                  <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+
+                    <p:outputLabel value="Fabricante:*" />
+                    <p:inputText value="#{controllerCatModelosDispositivos.nuevo.fabricante}"  required="true"
+                              style="width: 100%"   requiredMessage="El campo 'Fabricante' es requerido" />
+                </p:panelGrid>
+
+
+                <p:panelGrid columns="1" layout="grid" styleClass="sinBordes">
+                    <p:outputLabel value="Estatus:" />
+                    <p:inputSwitch value="#{controllerCatModelosDispositivos.nuevo.status}"  />
+                </p:panelGrid>
+
+
+
+            </p:panelGrid>
+
+         
+
+            <cmp:botonesFormulario actionCancelar="#{controllerCatModelosDispositivos.cancelar()}" 
+                                   actionGuardar="#{controllerCatModelosDispositivos.guardar()}"
+                                   banderaEdicion="#{controllerCatModelosDispositivos.banderaEdicion}"
+                                   />
+
+
+         
+    </ui:define>
+
+</ui:composition>
